@@ -12,7 +12,8 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps } from '@wordpress/block-editor';
-
+import { TextControl } from '@wordpress/components';
+ 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -29,10 +30,12 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Signature – hello from the editor!', 'signature' ) }
-		</p>
-	);
+export default function Edit( { attributes, setAttributes } ) {
+    return (
+        <TextControl
+            { ...useBlockProps() }
+            value={ attributes.message }
+            onChange={ ( val ) => setAttributes( { message: val } ) }
+        />
+    );
 }
